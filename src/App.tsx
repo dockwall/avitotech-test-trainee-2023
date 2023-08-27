@@ -1,8 +1,17 @@
 import React from "react";
-import "semantic-ui-css/semantic.min.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import GamePage from "./pages/GamePage";
 
-function App() {
-  return <h1>check</h1>;
-}
+const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/game/:id" element={<GamePage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;
