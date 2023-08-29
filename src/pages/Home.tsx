@@ -9,7 +9,7 @@ const Home: React.FC = () => {
     (state: RootState) => state.games
   );
   useEffect(() => {
-    dispatch(fetchGames()); // TODO: add filters and sorters
+    dispatch(fetchGames());
   }, [dispatch]);
 
   if (loading) {
