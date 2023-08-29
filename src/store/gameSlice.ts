@@ -1,15 +1,17 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { Game, GameFilterParams } from "../types/gameTypes";
+import { Game, GameDetails, GameFilterParams } from "../types/gameTypes";
 import * as gameApi from "../api/gameApi";
 
 interface GameState {
   games: Game[];
+  gameDetails: GameDetails | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: GameState = {
   games: [],
+  gameDetails: null,
   loading: false,
   error: null,
 };
@@ -41,7 +43,7 @@ const gameSlice = createSlice({
       .addCase(fetchGames.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchGames.fulfilled, (state, action: PayloadAction<any[]>) => {
+      .addCase(fetchGames.fulfilled, (state, action: PayloadAction<Game[]>) => {
         state.loading = false;
         state.games = action.payload;
       })
@@ -49,6 +51,21 @@ const gameSlice = createSlice({
         state.loading = false;
         state.error =
           action.error.message || "Unknown error: failed to load games data";
+      })
+      .addCase(fetchGameById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        fetchGameById.fulfilled,
+        (state, action: PayloadAction<GameDetails>) => {
+          state.loading = false;
+          state.gameDetails = action.payload;
+        }
+      )
+      .addCase(fetchGameById.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.error.message || "Unknown error: failed to load game details";
       });
   },
 });
