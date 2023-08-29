@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { Game, GameFilterParams } from "../types/gameTypes";
+import * as gameApi from "../api/gameApi";
 
-interface GameData {
-  id: number;
-  name: string;
-}
 interface GameState {
-  games: GameData[]; // TODO: Add non mock types for game list
+  games: Game[];
   loading: boolean;
   error: string | null;
 }
@@ -16,15 +14,21 @@ const initialState: GameState = {
   error: null,
 };
 
-// TODO: replace mock action with true API
-export const fetchGames = createAsyncThunk<any[], void, {}>(
+export const fetchGames = createAsyncThunk(
   "games/fetchGames",
-  async () => {
-    // "API" section
-    return [
-      { id: 1, name: "Game 1" },
-      { id: 2, name: "Game 2" },
-    ];
+  async (params?: GameFilterParams) => {
+    const games = params
+      ? await gameApi.fetchFilteredGames(params)
+      : await gameApi.fetchAllGames();
+    return games;
+  }
+);
+
+export const fetchGameById = createAsyncThunk(
+  "games/fetchGameById",
+  async (id: number) => {
+    const gameDetails = await gameApi.fetchGameDetails(id);
+    return gameDetails;
   }
 );
 
