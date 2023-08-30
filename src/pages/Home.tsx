@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGames } from "../store/gameSlice";
 import { RootState, AppDispatch } from "../store/store";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 const Home: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -13,7 +14,7 @@ const Home: React.FC = () => {
   }, [dispatch]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingIndicator />;
   }
 
   if (error) {
