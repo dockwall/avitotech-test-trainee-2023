@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Game, GameDetails, GameFilterParams } from "../types/gameTypes";
 
-const RAPIDAPI_KEY = process.env.REACT_APP_RAPIDAPI_KEY;
+// Знаю что делаю - ключ будет перенесен на прокси бэкенд... в будущем
+const RAPIDAPI_KEY = "e69500d004msh2486cdac20c1285p14d256jsn432bef221752";
 const RAPIDAPI_HOST = "free-to-play-games-database.p.rapidapi.com";
 
 const apiClient = axios.create({
