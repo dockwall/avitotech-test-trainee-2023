@@ -6,6 +6,7 @@ import { fetchGameById } from "../store/gameSlice";
 import { RootState, AppDispatch } from "../store/store";
 import { MinimumSystemRequirements } from "../types/gameTypes";
 import LoadingIndicator from "../components/LoadingIndicator";
+import ScreenshotCarousel from "../components/ScreenshotCarousel";
 
 const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString("ru-RU");
@@ -56,7 +57,16 @@ const GamePage: React.FC = () => {
           <Card.Description>
             <Grid columns={2}>
               <Grid.Column>
-                <Image src={gameDetails?.thumbnail} alt={gameDetails?.title} />
+                <Image
+                  src={gameDetails?.thumbnail}
+                  alt={gameDetails?.title}
+                  style={{ padding: "25px 0" }}
+                />
+                <Button onClick={() => navigate(-1)}>
+                  Вернуться к списку игр
+                </Button>
+              </Grid.Column>
+              <Grid.Column>
                 <p>
                   <strong>Дата релиза:</strong>{" "}
                   {formatDate(gameDetails?.release_date || "")}
@@ -67,8 +77,6 @@ const GamePage: React.FC = () => {
                 <p>
                   <strong>Разработчик:</strong> {gameDetails?.developer}
                 </p>
-              </Grid.Column>
-              <Grid.Column>
                 <p>
                   <strong>Жанр:</strong> {gameDetails?.genre}
                 </p>
@@ -77,8 +85,8 @@ const GamePage: React.FC = () => {
                 </p>
               </Grid.Column>
             </Grid>
+            <ScreenshotCarousel screenshots={gameDetails?.screenshots || []} />
           </Card.Description>
-          <Button onClick={() => navigate(-1)}>Вернуться к списку игр</Button>
         </Card.Content>
       </Card>
     </Container>
