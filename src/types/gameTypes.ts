@@ -1,3 +1,68 @@
+export const GameTags = {
+  mmorpg: "MMORPG",
+  shooter: "Shooter",
+  strategy: "Strategy",
+  moba: "MOBA",
+  racing: "Racing",
+  sports: "Sports",
+  social: "Social",
+  sandbox: "Sandbox",
+  "open-world": "Open World",
+  survival: "Survival",
+  pvp: "PvP",
+  pve: "PvE",
+  pixel: "Pixel",
+  voxel: "Voxel",
+  zombie: "Zombie",
+  "turn-based": "Turn-based",
+  "first-person": "First-Person",
+  "third-Person": "Third-Person",
+  "top-down": "Top-Down",
+  tank: "Tank",
+  space: "Space",
+  sailing: "Sailing",
+  "side-scroller": "Side-Scroller",
+  superhero: "Superhero",
+  permadeath: "Permadeath",
+  card: "Card",
+  "battle-royale": "Battle Royale",
+  mmo: "MMO",
+  mmofps: "MMOFPS",
+  mmotps: "MMOTPS",
+  "3d": "3D",
+  "2d": "2D",
+  anime: "Anime",
+  fantasy: "Fantasy",
+  "sci-fi": "Sci-Fi",
+  fighting: "Fighting",
+  "action-rpg": "Action RPG",
+  action: "Action",
+  military: "Military",
+  "martial-arts": "Martial Arts",
+  flight: "Flight",
+  "low-spec": "Low Spec",
+  "tower-defense": "Tower Defense",
+  horror: "Horror",
+  mmorts: "MMORTS",
+};
+
+export const Platforms = {
+  pc: "PC",
+  browser: "Browser",
+  all: "All",
+};
+
+export const SortByOptions = {
+  "release-date": "Release Date",
+  popularity: "Popularity",
+  alphabetical: "Alphabetical",
+  relevance: "Relevance",
+};
+
+export type GameTagType = keyof typeof GameTags;
+export type PlatformType = keyof typeof Platforms;
+export type SortByType = keyof typeof SortByOptions;
+
 export interface Game {
   id: number;
   title: string;
@@ -33,56 +98,9 @@ export interface MinimumSystemRequirements {
 }
 
 export interface GameFilterParams {
-  platform?: "pc" | "browser" | "all";
-  category?: GameTag;
-  tag?: GameTag[];
-  "sort-by"?: "release-date" | "popularity" | "alphabetical" | "relevance";
+  platform?: PlatformType;
+  category?: GameTagType;
+  tag?: GameTagType[];
+  "sort-by"?: SortByType;
   id?: number;
 }
-
-export type GameTag =
-  | "mmorpg"
-  | "shooter"
-  | "strategy"
-  | "moba"
-  | "racing"
-  | "sports"
-  | "social"
-  | "sandbox"
-  | "open-world"
-  | "survival"
-  | "pvp"
-  | "pve"
-  | "pixel"
-  | "voxel"
-  | "zombie"
-  | "turn-based"
-  | "first-person"
-  | "third-Person"
-  | "top-down"
-  | "tank"
-  | "space"
-  | "sailing"
-  | "side-scroller"
-  | "superhero"
-  | "permadeath"
-  | "card"
-  | "battle-royale"
-  | "mmo"
-  | "mmofps"
-  | "mmotps"
-  | "3d"
-  | "2d"
-  | "anime"
-  | "fantasy"
-  | "sci-fi"
-  | "fighting"
-  | "action-rpg"
-  | "action"
-  | "military"
-  | "martial-arts"
-  | "flight"
-  | "low-spec"
-  | "tower-defense"
-  | "horror"
-  | "mmorts";
