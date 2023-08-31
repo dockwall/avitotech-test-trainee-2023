@@ -12,18 +12,21 @@ const apiClient = axios.create({
   },
 });
 
-export const fetchAllGames = async (): Promise<Game[]> => {
-  const response = await apiClient.get<Game[]>("/games");
-  return response.data;
-};
-
-export const fetchFilteredGames = async (
-  params: GameFilterParams
+export const fetchGames = async (
+  params?: GameFilterParams
 ): Promise<Game[]> => {
-  const tagString = params.tag?.length ? params.tag.join(".") : null;
-  const response = await apiClient.get<Game[]>("/filter", {
+  let endpoint: "games" | "filter" = "games";
+  let tagString: string | null = null;
+
+  if (params?.tag?.length) {
+    endpoint = "filter";
+    tagString = params.tag.join(".");
+  }
+
+  const response = await apiClient.get<Game[]>(endpoint, {
     params: { ...params, tag: tagString },
   });
+
   return response.data;
 };
 
@@ -31,5 +34,6 @@ export const fetchGameDetails = async (id: number): Promise<GameDetails> => {
   const response = await apiClient.get<GameDetails>("/game", {
     params: { id },
   });
+
   return response.data;
 };
