@@ -1,4 +1,4 @@
-export const GameTags = {
+export const gameTags = {
   mmorpg: "MMORPG",
   shooter: "Shooter",
   strategy: "Strategy",
@@ -46,22 +46,22 @@ export const GameTags = {
   mmorts: "MMORTS",
 };
 
-export const Platforms = {
+export const platforms = {
   pc: "PC",
   browser: "Browser",
   all: "All",
 };
 
-export const SortByOptions = {
+export const sortBy = {
   "release-date": "Release Date",
   popularity: "Popularity",
   alphabetical: "Alphabetical",
   relevance: "Relevance",
 };
 
-export type GameTagType = keyof typeof GameTags;
-export type PlatformType = keyof typeof Platforms;
-export type SortByType = keyof typeof SortByOptions;
+export type GameTagType = keyof typeof gameTags;
+export type PlatformType = keyof typeof platforms;
+export type SortByType = keyof typeof sortBy;
 
 export interface Game {
   id: number;

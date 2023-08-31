@@ -7,6 +7,7 @@ interface GameState {
   gameDetails: GameDetails | null;
   loading: boolean;
   error: string | null;
+  filters: GameFilterParams;
 }
 
 const initialState: GameState = {
@@ -14,14 +15,13 @@ const initialState: GameState = {
   gameDetails: null,
   loading: false,
   error: null,
+  filters: {},
 };
 
 export const fetchGames = createAsyncThunk(
   "games/fetchGames",
   async (params?: GameFilterParams) => {
-    const games = params
-      ? await gameApi.fetchFilteredGames(params)
-      : await gameApi.fetchAllGames();
+    const games = await gameApi.fetchGames(params);
     return games;
   }
 );
@@ -37,7 +37,11 @@ export const fetchGameById = createAsyncThunk(
 const gameSlice = createSlice({
   name: "games",
   initialState,
-  reducers: {},
+  reducers: {
+    setFilters: (state, action: PayloadAction<GameFilterParams>) => {
+      state.filters = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGames.pending, (state) => {
@@ -71,3 +75,4 @@ const gameSlice = createSlice({
 });
 
 export default gameSlice.reducer;
+export const { setFilters } = gameSlice.actions;
